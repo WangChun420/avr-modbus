@@ -6,6 +6,25 @@ For all my little tiny sensors at home I decided to use good old MODBUS.
 
 Why? I wanted to use RS485 in any case and there are multiple sensors out there talking MODBUS.
 
+# Protocol Definitions
+
+Uses a basic MODBUS implementation (only the very basic commandset).
+
+## Implemented in modbus library per default
+
+### Register Read (0x03)
+        * 0x00: Identification
+                * 0xFF00: Bootlader
+                * 0xFF01: hello_modbus
+
+### Write Single Register (0x06)
+        * 0xFE: Set Modbus Address
+
+## MUST be implemented by every firmware
+
+### Write Single Register (0x06)
+        * 0xFF: Reset (Magic Value = 0x42)
+
 # bootloader
 
 Very basic MODBUS bootloader to upload firmware
