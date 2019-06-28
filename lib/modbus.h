@@ -22,13 +22,15 @@
 #define MODBUS_EX_ILLEGAL_DATA_ADDRESS  0x02
 #define MODBUS_EX_ILLEGAL_DATA_VALUE    0x03
 #define MODBUS_EX_SLAVE_DEVICE_FAILURE  0x04
+
+#define MODBUS_READ_COIL_CMD            0x01
 #define MODBUS_READ_REG_CMD             0x03
+#define MODBUS_WRITE_COIL_CMD           0x05
 #define MODBUS_WRITE_REG_CMD            0x06
 #define MODBUS_WRITE_DATA_CMD           0x10
 
 /* standard register offsets and magic values */
 #define MB_RD_IDENT         0x00
-#define MB_WR_ADDR_EEPROM   0xFE
 #define MB_WR_RESET         0xFF
 #define MB_WR_RESET_MAGIC   0x42
 

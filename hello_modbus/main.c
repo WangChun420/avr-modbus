@@ -56,7 +56,7 @@ int main (void)
                         default:
                             ret = MODBUS_EX_ILLEGAL_DATA_ADDRESS;
                     }
-                    len = 7;
+                    len = 3;
                     break;
 
                 case MODBUS_WRITE_REG_CMD:
@@ -74,7 +74,7 @@ int main (void)
                         default:
                             ret = MODBUS_EX_ILLEGAL_DATA_ADDRESS;
                     }
-                    len = 8;
+                    len = 4;
                     break;
 
                 default:

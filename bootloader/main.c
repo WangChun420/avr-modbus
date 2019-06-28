@@ -73,7 +73,7 @@ int main (void)
                         default:
                             ret = MODBUS_EX_ILLEGAL_DATA_ADDRESS;
                     }
-                    len = 7;
+                    len = 3;
                     break;
 
                 /* write register
@@ -99,7 +99,7 @@ int main (void)
                         default:
                             ret = MODBUS_EX_ILLEGAL_DATA_ADDRESS;
                     }
-                    len = 8;
+                    len = 4;
                     break;
 
                 case MODBUS_WRITE_DATA_CMD:
@@ -125,7 +125,7 @@ int main (void)
                     boot_rww_enable();
 
                     // fill in response
-                    len = 8;
+                    len = 4;
                     break;
 
                 default:

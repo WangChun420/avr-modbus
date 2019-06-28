@@ -223,7 +223,7 @@ int main(int argc, char *argv[]) {
 
     if (new_id > 0) {
         printf("Writing new MODBUS Address 0x%02x to EEPROM\n\r", new_id);
-        rc = my_modbus_write_reg(ctx, server_id, 0xFE, new_id);
+        rc = my_modbus_write_reg(ctx, server_id, 0x8000, new_id);
         if (rc < 0) {
             fprintf(stderr, "  failed to write new address, %d\n\r", rc);
             exit(1);

@@ -8,7 +8,7 @@
 		* 0xFF01: hello_modbus
 
 ### Write Single Register (0x06)
-	* 0xFE: Set Modbus Address
+	* 0x8000...: Write EEPROM value (+offset)
 
 ## MUST be implemented by every firmware
 

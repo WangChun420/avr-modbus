@@ -9,8 +9,7 @@ SOURCES := $(wildcard $(LIBS)/*.c) main.c
 OBJECTS = $(SOURCES:.c=.o)
 HEADERS = $(SOURCES:.c=.h)
 
-#### Build application
-all: $(TARGET).hex size
+all: $(TARGET).hex size client
 
 %.o: %.c $(HEADERS) Makefile
 	@ $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -o $@ $<
@@ -31,7 +30,6 @@ clean:
 	rm -rf *.elf *.hex *.obj *.o *.d *.eep *.lst *.lss *.sym *.map *~ *.eeprom
 	rm -rf ../lib/*.o
 	rm -f client
-
 
 #### Build Client
 client: client.cpp ../hlib/modbus.cpp ../hlib/modbus.hpp
