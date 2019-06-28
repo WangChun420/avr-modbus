@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
         }
     }
     if (rc < 0) {
-        fprintf(stderr, "  failed to connect to application, %d\n\r", rc);
+        fprintf(stderr, "  failed to connect to application, is it broken?, %d\n\r", rc);
     }
     if (rc == 0xFF00) {
         fprintf(stderr, "  resettet but back in bootloader?\n\r");

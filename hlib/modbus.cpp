@@ -47,7 +47,7 @@ int my_modbus_write_reg(modbus_t *ctx, uint8_t addr, uint16_t reg, uint16_t val)
 int my_modbus_check_identification(modbus_t *ctx, uint8_t addr, uint16_t ident)
 {
     int rc;
-    for (int i=0; i<10; i++) {
+    for (int i=0; i<100; i++) {
         rc = my_modbus_read_reg(ctx, addr, 0x00);
         if (rc > 0) {
             break;
