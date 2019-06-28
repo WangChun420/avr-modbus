@@ -107,10 +107,9 @@ int main(int argc, char *argv[]) {
     }
 
     // recheck identification
-    printf("Reconnecting to Booloader\n\r");
     rc = my_modbus_check_identification(ctx, server_id, 0xFF00);
     if (rc) {
-        fprintf(stderr, "  failed to connect after reset, %d\n\r", rc);
+        fprintf(stderr, "  failed to connect after reset, 0x%04x\n\r", rc);
         exit(1);
     }
 
@@ -234,8 +233,26 @@ int main(int argc, char *argv[]) {
     printf("Resetting controller to load firmware\n\r");
     rc = my_modbus_write_reg(ctx, server_id, 0xFF, 0x42);
     if (rc < 0) {
-        fprintf(stderr, "  failed to reset from bootloader, %d\n\r", rc);
+        fprintf(stderr, "  failed to reset from bootloader, 0x%04x\n\r", rc);
         exit(1);
+    }
+
+    // if we programmed a new id this is valid after restart
+    if (new_id) {
+        server_id = new_id;
+    }
+
+    for (int i=0; i<10; i++) {
+        rc = my_modbus_read_reg(ctx, server_id, 0x00);
+        if (rc > 0) {
+            break;
+        }
+    }
+    if (rc < 0) {
+        fprintf(stderr, "  failed to connect to application, %d\n\r", rc);
+    }
+    if (rc == 0xFF00) {
+        fprintf(stderr, "  resettet but back in bootloader?\n\r");
     }
 
     modbus_close(ctx);

@@ -28,8 +28,12 @@ int main(int argc, char *argv[]) {
 
     fprintf(stdout, "Connecting to device with address 0x%02x\n\r", addr);
     rc = my_modbus_check_identification(ctx, addr, 0xFF01);
-    if (rc) {
-        fprintf(stderr, "  failed to connect with correct id, %d\n\r", rc);
+    if (rc < 0) {
+        fprintf(stderr, "  failed to connect, %d\n\r", rc);
+        exit(1);
+    }
+    if (rc > 0) {
+        fprintf(stderr, "  failed to connect with correct id, 0x%04x\n\r", rc);
         exit(1);
     }
 

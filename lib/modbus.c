@@ -112,7 +112,7 @@ uint8_t modbus_recv(uint8_t* buf)
  *   calls modbus_recv
  *   handles messages every firmware must implement
  */
-uint8_t modbus_poll(uint8_t* msg)
+uint8_t modbus_poll(uint8_t* msg, uint16_t magic)
 {
     uint8_t ret = modbus_recv(msg);
     if (ret > 0) {
@@ -129,8 +129,8 @@ uint8_t modbus_poll(uint8_t* msg)
                 switch (msg[3]) {
                     case 0x00:
                         msg[2] = 2;
-                        msg[3] = MY_MAGIC>>8;
-                        msg[4] = (uint8_t)MY_MAGIC;
+                        msg[3] = magic >> 8;
+                        msg[4] = (uint8_t)magic;
                         send_modbus_response(msg, 7, 0);
                         return 0;
                 }

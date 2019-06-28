@@ -16,12 +16,14 @@
 void do_reset()
 {
     DDRB &= ~(1<<LED_PIN);
-    asm("jmp 0000");
+    asm("jmp 0");
 }
 
 int main (void)
 {
     MCUSR = 0;
+    wdt_enable(WDTO_1S);
+    cli();
     modbus_init();
     init_timer();
 
@@ -36,7 +38,9 @@ int main (void)
     while (1) {
         wdt_reset();
         // timeout or reset request = jump to app
-        if (TCNT1H > 0x40 || state == 255) {
+        // MUST read TCNT1L before TCNT1H !!
+        ret = TCNT1L;
+        if (TCNT1H > 0x10 || state == 255) {
             _delay_ms(10);
             do_reset();
         }
@@ -46,7 +50,7 @@ int main (void)
             TCNT1L = 0;
         }
         ret = 0;
-        len = modbus_poll(buf);
+        len = modbus_poll(buf, MY_MAGIC);
         if (len) {
             switch (buf[1]) {
 

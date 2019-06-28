@@ -11,11 +11,12 @@
 #include "modbus.h"
 #include "common.h"
 
-void (*bootloader)( void ) = BOOTLOADER;
+void (*bootloader)( void ) = BOOT_WBASE;
 
 int main (void)
 {
-//    while(1) { ; }
+    MCUSR = 0;
+    wdt_enable(WDTO_1S);
     cli();
     modbus_init();
     init_timer();
@@ -34,7 +35,7 @@ int main (void)
             _delay_ms(10);
             bootloader();
         }
-        len = modbus_poll(buf);
+        len = modbus_poll(buf, MY_MAGIC);
         ret = 0;
         if (len) {
             switch (buf[1]) {

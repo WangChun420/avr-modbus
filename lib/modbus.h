@@ -37,7 +37,7 @@ uint8_t modbus_addr;
 
 void modbus_init();
 uint8_t modbus_recv(uint8_t* buf);
-uint8_t modbus_poll(uint8_t* buf);
+uint8_t modbus_poll(uint8_t* buf, uint16_t magic);
 void send_modbus_array(uint8_t* msg, uint8_t len);
 void send_modbus_response(uint8_t* msg, uint8_t len, uint8_t resp);
 
